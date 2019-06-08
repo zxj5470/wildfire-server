@@ -9,4 +9,11 @@ import java.util.List;
 public interface ListDao {
 	@Select("SELECT * FROM wildfire.activity")
 	List<ListModel> getList();
+
+	@Update("UPDATE wildfire.activity " +
+			"set startTime=#{startTime}, " +
+			"endTime=#{endTime}, " +
+			"introduction=#{introduction}, " +
+			"timeflow=#{timeflow} where id=#{id} and orgId=#{orgId}")
+	boolean updateItem(ListModel model);
 }
