@@ -14,7 +14,7 @@ public class ListController {
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public String getAllItems() {
-		System.out.println("开始查询所有数据...");
+		System.out.println("开始查询所有list数据...");
 		String ret = Helper.returnResult(listDao.getList());
 		return ret;
 	}
@@ -25,6 +25,7 @@ public class ListController {
 	 */
 	@RequestMapping(value = "/put", method = RequestMethod.PUT)
 	public String putItemById(@RequestBody ListModel listModel) {
+		System.out.println("开始修改put数据...");
 		boolean b = listDao.updateItem(listModel);
 		String ret ;
 		if(b){
