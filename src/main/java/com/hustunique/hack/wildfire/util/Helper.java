@@ -5,7 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.hustunique.hack.wildfire.model.ServerResponse;
 
 public class Helper {
-	private static final Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+	private static final Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd HH:mm:ss").create();
 
 	/**
 	 *
@@ -16,10 +16,10 @@ public class Helper {
 		ServerResponse ret = new ServerResponse();
 		if (bean == null) {
 			ret.setStatus(400);
-			ret.setResult(null);
+			ret.setResults(null);
 		} else {
 			ret.setStatus(0);
-			ret.setResult(bean);
+			ret.setResults(bean);
 		}
 		return gson.toJson(ret);
 	}
