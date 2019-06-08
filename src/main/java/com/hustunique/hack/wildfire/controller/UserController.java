@@ -10,9 +10,10 @@ import static com.hustunique.hack.wildfire.util.Helper.jsonParser;
 @RequestMapping(value = "/api/user", produces = "application/json;charset=UTF-8")
 public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestParam("code") String code) {
+	public String login(@RequestParam("code") String code,@RequestParam("userInfo")String userInfo) {
 		String appid = WFConstants.WX_APPID;
 		String secret = WFConstants.WX_SECRET;
+		System.out.println(userInfo);
 		try {
 			String ret = HttpUtil.doGet("https://api.weixin.qq.com/sns/jscode2session?" +
 					"appid=" + appid +

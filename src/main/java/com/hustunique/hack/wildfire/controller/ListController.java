@@ -14,24 +14,48 @@ public class ListController {
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public String getAllItems() {
-		System.out.println("开始查询所有list数据...");
+		System.out.println("开始查询所有列表数据...");
 		String ret = Helper.returnResult(listDao.getList());
 		return ret;
 	}
 
 	/**
 	 * 更改属性
+	 *
 	 * @return json
 	 */
 	@RequestMapping(value = "/put", method = RequestMethod.PUT)
 	public String putItemById(@RequestBody ListModel listModel) {
-		System.out.println("开始修改put数据...");
-		boolean b = listDao.updateItem(listModel);
-		String ret ;
-		if(b){
+		System.out.println("开始修改活动数据...");
+		boolean b = false;
+		try {
+			b = listDao.updateItem(listModel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String ret;
+		if (b) {
 			ret = Helper.returnResult(listModel);
-		}else{
+		} else {
 			ret = Helper.returnResult(null);
+		}
+		return ret;
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String addItemById(@RequestBody ListModel listModel) {
+		System.out.println("开始修改活动数据...");
+		boolean b = false;
+		try {
+			b = listDao.addItem(listModel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String ret;
+		if (b) {
+			ret = Helper.returnResult(true);
+		} else {
+			ret = Helper.returnFailed("添加失败");
 		}
 		return ret;
 	}

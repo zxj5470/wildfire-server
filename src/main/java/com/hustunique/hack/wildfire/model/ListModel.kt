@@ -7,4 +7,4 @@ class ListModel(var id: Int,
 				var startTime: Timestamp,
 				var endTime: Timestamp,
 				var introduction: String = "",
-				var timeflow: String = "")
+				var timeFlow: String = "")

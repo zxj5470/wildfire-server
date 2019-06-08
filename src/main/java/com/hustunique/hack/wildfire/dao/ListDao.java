@@ -16,4 +16,7 @@ public interface ListDao {
 			"introduction=#{introduction}, " +
 			"timeflow=#{timeflow} where id=#{id} and orgId=#{orgId}")
 	boolean updateItem(ListModel model);
+
+	@Insert("INSERT into wildfire.activity(orgId, startTime, endTime, introduction, timeFlow) values(#{orgId},#{startTime},#{endTime},#{introduction},#{timeFlow})")
+	boolean addItem(ListModel model);
 }
