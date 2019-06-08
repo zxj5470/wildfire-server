@@ -1,6 +1,5 @@
 package com.hustunique.hack.wildfire.controller;
 
-import com.hustunique.hack.wildfire.model.ServerResponse;
 import com.hustunique.hack.wildfire.util.*;
 import org.springframework.web.bind.annotation.*;
 

@@ -19,4 +19,7 @@ public interface ListDao {
 
 	@Insert("INSERT into wildfire.activity(orgId, startTime, endTime, introduction, timeFlow) values(#{orgId},#{startTime},#{endTime},#{introduction},#{timeFlow})")
 	boolean addItem(ListModel model);
+
+	@Delete("DELETE FROM wildfire.activity where id=#{id}")
+	boolean deleteItem(String id);
 }

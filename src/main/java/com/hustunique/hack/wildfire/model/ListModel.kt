@@ -6,5 +6,5 @@ class ListModel(var id: Int,
 				var orgId: Int,
 				var startTime: Timestamp,
 				var endTime: Timestamp,
-				var introduction: String = "",
-				var timeFlow: String = "")
+				var introduction: String,
+				var timeFlow: String)

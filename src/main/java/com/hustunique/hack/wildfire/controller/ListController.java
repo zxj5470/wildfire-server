@@ -28,12 +28,12 @@ public class ListController {
 	public String putItemById(@RequestBody ListModel listModel) {
 		System.out.println("开始修改活动数据...");
 		boolean b = false;
+		String ret;
 		try {
 			b = listDao.updateItem(listModel);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		String ret;
 		if (b) {
 			ret = Helper.returnResult(listModel);
 		} else {
@@ -42,21 +42,37 @@ public class ListController {
 		return ret;
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	public String addItemById(@RequestBody ListModel listModel) {
-		System.out.println("开始修改活动数据...");
+		System.out.println("添加活动数据...");
 		boolean b = false;
 		try {
 			b = listDao.addItem(listModel);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return retBooleanJsonResult(b);
+	}
+
+	private String retBooleanJsonResult(boolean b) {
 		String ret;
 		if (b) {
 			ret = Helper.returnResult(true);
 		} else {
-			ret = Helper.returnFailed("添加失败");
+			ret = Helper.returnResult(false);
 		}
 		return ret;
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+	public String deleteItemById(@RequestParam("id") String id) {
+		System.out.println("删除活动数据...");
+		boolean b = false;
+		try {
+			b = listDao.deleteItem(id);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return retBooleanJsonResult(b);
 	}
 }
