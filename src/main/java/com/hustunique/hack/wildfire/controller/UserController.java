@@ -1,13 +1,23 @@
 package com.hustunique.hack.wildfire.controller;
 
+import com.google.gson.JsonObject;
+import com.hustunique.hack.wildfire.dao.UserDao;
+import com.hustunique.hack.wildfire.model.UserAddModel;
+import com.hustunique.hack.wildfire.model.UserModel;
 import com.hustunique.hack.wildfire.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.hustunique.hack.wildfire.util.Helper.jsonParser;
 
 @RestController
 @RequestMapping(value = "/api/user", produces = "application/json;charset=UTF-8")
 public class UserController {
+	@Autowired
+	private UserDao userDao;
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam("code") String code,@RequestParam("userInfo")String userInfo) {
 		String appid = WFConstants.WX_APPID;
@@ -23,10 +33,21 @@ public class UserController {
 				return Helper.returnFailed("服务器请求出错");
 			}
 			String openid = jsonParser.parse(ret).getAsJsonObject().get("openid").getAsString();
-			return Helper.returnResult(openid);
+			List<UserModel> list = userDao.login(openid);
+			JsonObject obj  = jsonParser.parse(userInfo).getAsJsonObject();
+			String nickName = obj.get("nickName").getAsString();
+			if(list.isEmpty()){
+				boolean b = userDao.add(new UserAddModel(openid,nickName));
+				if(b) {
+					list = userDao.login(openid);
+				}else{
+					Helper.returnFailedWithNull("新建用户失败");
+				}
+			}
+			return Helper.returnResult(list.get(0));
 		} catch (Exception e) {
 			e.printStackTrace();
-			return Helper.returnResult(e.getMessage());
+			return Helper.returnFailedWithNull(e.getMessage());
 		}
 //		return ;
 	}
