@@ -19,6 +19,12 @@ public interface CompanyDao {
 
 	@Select("select * from company_user where username=#{username} and passwdmd5=#{passwdmd5} limit 1")
 	List<CompanyModel> login(CompanyLoginModel model);
+
+	@Select("select * from activity where orgId=#{orgId}")
+	List<ListModel> getActivities(CompanyQueryModel model);
+
+	@Insert("insert into company_user (username, company_name, passwdmd5, introduction) values (#{username},#{company_name},#{passwdmd5},#{introduction})")
+	boolean insert(CompanyAddModel model);
 //	@Delete("DELETE FROM wildfire.activity where id=#{id}")
 //	boolean deleteItem(String id);
 }

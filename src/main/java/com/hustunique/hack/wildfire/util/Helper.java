@@ -14,7 +14,6 @@ public class Helper {
 		@Override
 		public void write(JsonWriter out, String value) throws IOException {
 			if (value == null) {
-				// out.nullValue();
 				out.value(""); // 序列化时将 null 转为 ""
 			} else {
 				out.value(value);
@@ -27,7 +26,6 @@ public class Helper {
 				in.nextNull();
 				return null;
 			}
-			// return in.nextString();
 			String str = in.nextString();
 			if (str.equals("")) { // 反序列化时将 "" 转为 null
 				return null;
@@ -77,5 +75,15 @@ public class Helper {
 		ret.setMessage(message);
 		ret.setResults(null);
 		return nullGson.toJson(ret);
+	}
+
+	public static String booleanToResult(boolean b) {
+		String ret;
+		if (b) {
+			ret = Helper.returnResult(true);
+		} else {
+			ret = Helper.returnResult(false);
+		}
+		return ret;
 	}
 }

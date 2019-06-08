@@ -15,12 +15,12 @@ public class CompanyController {
 	private CompanyDao companyDao;
 
 	/**
-	 * 更改属性
+	 * 企业登录
 	 *
 	 * @return json
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String putItemById(@RequestBody CompanyLoginModel listModel) {
+	public String login(@RequestBody CompanyLoginModel listModel) {
 		System.out.println("开始修改活动数据...");
 		boolean b = false;
 		String ret;
@@ -41,12 +41,12 @@ public class CompanyController {
 	}
 
 	/**
+	 * TODO
 	 * 更改属性
-	 *
-	 * @return json
+	 * @return 请求结果
 	 */
 	@RequestMapping(value = "/put", method = RequestMethod.PUT)
-	public String update(@RequestBody ListModel listModel) {
+	public String update(@RequestBody CompanyModel companyModel) {
 		System.out.println("开始修改活动数据...");
 		boolean b = false;
 		String ret = "";
@@ -63,26 +63,32 @@ public class CompanyController {
 		return ret;
 	}
 
+	/**
+	 * 企业添加
+	 * @param model
+	 * @return 请求结果
+	 */
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
-	public String add(@RequestBody ListModel listModel) {
+	public String add(@RequestBody CompanyAddModel model) {
 		System.out.println("添加活动数据...");
 		boolean b = false;
-//		try {
-//			b = companyDao.addItem(listModel);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		return retBooleanJsonResult(b);
-	}
-
-	private String retBooleanJsonResult(boolean b) {
-		String ret;
-		if (b) {
-			ret = Helper.returnResult(true);
-		} else {
-			ret = Helper.returnResult(false);
+		try {
+			b = companyDao.insert(model);
+			return Helper.booleanToResult(b);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return ret;
+		return Helper.booleanToResult(b);
 	}
 
+	/**
+	 * 获取当前 company 的所有 Activity
+	 * @param model 请求。只有一个参数 {"orgId":23333}
+	 * @return 请求结果
+	 */
+	@RequestMapping(value = "/acts", method = RequestMethod.POST)
+	public String getOwnActs(@RequestBody CompanyQueryModel model) {
+		List<ListModel> list = companyDao.getActivities(model);
+		return Helper.returnResult(list);
+	}
 }

@@ -12,6 +12,11 @@ public class ListController {
 	@Autowired
 	private ListDao listDao;
 
+	/**
+	 * 获取所有内容项
+	 *
+	 * @return
+	 */
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	public String getAllItems() {
 		System.out.println("开始查询所有列表数据...");
@@ -20,7 +25,7 @@ public class ListController {
 	}
 
 	/**
-	 * 更改属性
+	 * 单个活动内容的属性
 	 *
 	 * @return json
 	 */
@@ -42,6 +47,11 @@ public class ListController {
 		return ret;
 	}
 
+	/**
+	 * 添加活动内容项
+	 * @param listModel
+	 * @return
+	 */
 	@RequestMapping(value = "/post", method = RequestMethod.POST)
 	public String addItemById(@RequestBody ListModel listModel) {
 		System.out.println("添加活动数据...");
@@ -51,19 +61,14 @@ public class ListController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return retBooleanJsonResult(b);
+		return Helper.booleanToResult(b);
 	}
 
-	private String retBooleanJsonResult(boolean b) {
-		String ret;
-		if (b) {
-			ret = Helper.returnResult(true);
-		} else {
-			ret = Helper.returnResult(false);
-		}
-		return ret;
-	}
-
+	/**
+	 * 删除单条活动内容
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/delete", method = RequestMethod.DELETE)
 	public String deleteItemById(@RequestParam("id") String id) {
 		System.out.println("删除活动数据...");
@@ -73,6 +78,6 @@ public class ListController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return retBooleanJsonResult(b);
+		return Helper.booleanToResult(b);
 	}
 }

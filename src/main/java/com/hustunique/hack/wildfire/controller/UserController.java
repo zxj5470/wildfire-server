@@ -18,6 +18,12 @@ public class UserController {
 	@Autowired
 	private UserDao userDao;
 
+	/**
+	 * 用户登录。如果用户表中没有就进行创建，并返回 id 属性。其中 id 属性应保存在小程序中。
+	 * @param code
+	 * @param userInfo
+	 * @return
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestParam("code") String code,@RequestParam("userInfo")String userInfo) {
 		String appid = WFConstants.WX_APPID;
