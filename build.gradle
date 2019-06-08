@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.3.11'
+    id 'org.springframework.boot' version '2.1.3.RELEASE'
+}
+
+group 'com.hustunique.hack'
+version '1.0-SNAPSHOT'
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.alibaba:druid-spring-boot-starter:1.1.16'
+    compile 'org.springframework.boot:spring-boot-starter-web:2.1.3.RELEASE'
+    compile 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.0'
+    // mysql
+    compile 'mysql:mysql-connector-java:5.1.39'
+    compile 'com.google.code.gson:gson:2.8.5'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile "org.jetbrains.kotlin:kotlin-stdlib"
+    compile "org.jetbrains.kotlin:kotlin-reflect"
+
+}
