@@ -21,12 +21,11 @@ public class CompanyController {
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(@RequestBody CompanyLoginModel listModel) {
-		System.out.println("开始修改活动数据...");
-		boolean b = false;
+		System.out.println("登录活动数据...");
 		String ret;
 		try {
 			List<CompanyModel> list = companyDao.login(listModel);
-			b = !list.isEmpty();
+			boolean b = !list.isEmpty();
 			if (b) {
 				ret = Helper.returnResultWithNull(list.get(0));
 			} else {
@@ -43,28 +42,26 @@ public class CompanyController {
 	/**
 	 * TODO
 	 * 更改属性
+	 *
 	 * @return 请求结果
 	 */
 	@RequestMapping(value = "/put", method = RequestMethod.PUT)
 	public String update(@RequestBody CompanyModel companyModel) {
 		System.out.println("开始修改活动数据...");
 		boolean b = false;
-		String ret = "";
-//		try {
-//			b = companyDao.updateItem(listModel);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		if (b) {
-//			ret = Helper.returnResult(listModel);
-//		} else {
-//			ret = Helper.returnResult(null);
-//		}
+		String ret;
+		try {
+			b = companyDao.update(companyModel);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ret = Helper.booleanToResult(b);
 		return ret;
 	}
 
 	/**
 	 * 企业添加
+	 *
 	 * @param model
 	 * @return 请求结果
 	 */
@@ -83,6 +80,7 @@ public class CompanyController {
 
 	/**
 	 * 获取当前 company 的所有 Activity
+	 *
 	 * @param model 请求。只有一个参数 {"orgId":23333}
 	 * @return 请求结果
 	 */
